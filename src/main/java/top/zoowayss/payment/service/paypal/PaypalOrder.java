@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import top.zoowayss.payment.domain.Order;
 import top.zoowayss.payment.domain.Product;
-import top.zoowayss.payment.domain.enums.OrderStatus;
+import top.zoowayss.payment.domain.enums.OrderStatusEnum;
 import top.zoowayss.payment.domain.paypal.ShippingAmount;
 import top.zoowayss.payment.domain.paypal.orders.PayPalOrders;
 import top.zoowayss.payment.domain.paypal.orders.PurchaseUnits;
@@ -24,12 +24,17 @@ public class PaypalOrder extends AbstractPayPalOrder {
         payPalOrders.setIntent("CAPTURE");
         PayPalOrders orders = paypalClient.orderCreate(payPalOrders);
 
-        return new Order(orders.getId(), OrderStatus.of(orders.getStatus()), orders.getLinks().stream().filter(l -> "payer-action".equals(l.getRel())).findFirst().orElseThrow().getHref());
+        return new Order(orders.getId(), OrderStatusEnum.of(orders.getStatus()), orders.getLinks().stream().filter(l -> "payer-action".equals(l.getRel())).findFirst().orElseThrow().getHref());
     }
 
     @Override
     public Order retriveOrder(String tradeNo) throws Exception {
         PayPalOrders orders = paypalClient.retrieveOrder(tradeNo);
-        return new Order(orders.getId(), OrderStatus.of(orders.getStatus()), "payer-action", orders.getLinks());
+        return new Order(orders.getId(), OrderStatusEnum.of(orders.getStatus()), "payer-action", orders.getLinks());
+    }
+
+    @Override
+    public String getName() {
+        return "PAYPAL_ORDER";
     }
 }

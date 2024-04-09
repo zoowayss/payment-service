@@ -3,7 +3,7 @@ package top.zoowayss.payment.service;
 import top.zoowayss.payment.domain.Order;
 import top.zoowayss.payment.domain.Product;
 
-public interface ThirdPartOrder {
+public interface ThirdPartOrder extends NamedHandler {
 
     /**
      * 创建支付订单

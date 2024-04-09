@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import top.zoowayss.payment.domain.Order;
 import top.zoowayss.payment.domain.Product;
-import top.zoowayss.payment.domain.enums.OrderStatus;
+import top.zoowayss.payment.domain.enums.OrderStatusEnum;
 
 /**
  * @Author: <a href="https://github.com/zoowayss">zoowayss</a>
@@ -20,6 +20,11 @@ public class StripeSubscription extends AbstractStripeOrder {
     @Override
     public Order createOrder(Product p) throws Exception {
         Session session = istripeClient.createSession(p, SessionCreateParams.Mode.SUBSCRIPTION);
-        return new Order(session.getId(), OrderStatus.of(session.getPaymentStatus()), session.getUrl());
+        return new Order(session.getId(), OrderStatusEnum.of(session.getPaymentStatus()), session.getUrl());
+    }
+
+    @Override
+    public String getName() {
+        return "STRIPE_SUBSCRIPTION";
     }
 }

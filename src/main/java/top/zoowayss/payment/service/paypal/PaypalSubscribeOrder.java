@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import top.zoowayss.payment.domain.Order;
 import top.zoowayss.payment.domain.Product;
-import top.zoowayss.payment.domain.enums.OrderStatus;
+import top.zoowayss.payment.domain.enums.OrderStatusEnum;
 import top.zoowayss.payment.domain.paypal.subscription.Subscription;
 
 @Service
@@ -19,12 +19,17 @@ public class PaypalSubscribeOrder extends AbstractPayPalOrder {
         create.setStartTime(p.getStartTime());
         Subscription createSub = paypalClient.createSubscription(create);
         log.info("create subscription:{}", createSub);
-        return new Order(createSub.getId(), OrderStatus.of(createSub.getStatus()), "approve", createSub.getLinks());
+        return new Order(createSub.getId(), OrderStatusEnum.of(createSub.getStatus()), "approve", createSub.getLinks());
     }
     @Override
     public Order retriveOrder(String tradeNo) throws Exception {
         Subscription nowSub = paypalClient.subscriptionDetails(tradeNo);
 
-        return new Order(nowSub.getId(), OrderStatus.of(nowSub.getStatus()), "approve", nowSub.getLinks());
+        return new Order(nowSub.getId(), OrderStatusEnum.of(nowSub.getStatus()), "approve", nowSub.getLinks());
+    }
+
+    @Override
+    public String getName() {
+        return "PAYPAL_SUBSCRIBE";
     }
 }

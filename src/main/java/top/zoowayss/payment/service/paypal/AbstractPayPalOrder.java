@@ -12,4 +12,9 @@ public class AbstractPayPalOrder implements ThirdPartOrder {
 
     @Resource
     protected PaypalClient paypalClient;
+
+    @Override
+    public String getName() {
+        return "ABSTRACT_PAYPAL_ORDER";
+    }
 }

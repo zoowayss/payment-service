@@ -3,7 +3,7 @@ package top.zoowayss.payment.service.stripe;
 import com.stripe.model.checkout.Session;
 import jakarta.annotation.Resource;
 import top.zoowayss.payment.domain.Order;
-import top.zoowayss.payment.domain.enums.OrderStatus;
+import top.zoowayss.payment.domain.enums.OrderStatusEnum;
 import top.zoowayss.payment.service.ThirdPartOrder;
 
 /**
@@ -20,6 +20,11 @@ public class AbstractStripeOrder implements ThirdPartOrder {
     public Order retriveOrder(String sessionId) throws Exception {
         Session session = istripeClient.retrieveOrder(sessionId);
 
-        return new Order(session.getId(), OrderStatus.of(session.getPaymentStatus()), session.getUrl());
+        return new Order(session.getId(), OrderStatusEnum.of(session.getPaymentStatus()), session.getUrl());
+    }
+
+    @Override
+    public String getName() {
+        return "ABSTRACT_STRIPE_ORDER";
     }
 }

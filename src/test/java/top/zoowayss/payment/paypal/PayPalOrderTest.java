@@ -52,7 +52,7 @@ public class PayPalOrderTest {
 
     @Test
     public void testRetrieveOrderPaypal() throws Exception {
-        Order order = paypalOrder.retriveOrder("23X31295KE057562L");
+        Order order = paypalOrder.retriveOrder("0F6185698G369291H");
         logger.info("order: {}", order);
     }
 }
