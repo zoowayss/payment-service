@@ -25,6 +25,12 @@ public class PaypalOrder extends AbstractPayPalOrder {
         payPalOrders.setIntent("CAPTURE");
         PayPalOrders orders = paypalClient.orderCreate(payPalOrders);
 
-        return new Order(orders.getId(), OrderStatus.of(orders.getStatus()), orders.getLinks().stream().filter(l -> "payer-action".equals(l.getRel())).findFirst().orElseThrow().getHref() );
+        return new Order(orders.getId(), OrderStatus.of(orders.getStatus()), orders.getLinks().stream().filter(l -> "payer-action".equals(l.getRel())).findFirst().orElseThrow().getHref());
+    }
+
+    @Override
+    public Order retriveOrder(String tradeNo) throws Exception {
+        PayPalOrders orders = paypalClient.retrieveOrder(tradeNo);
+        return new Order(orders.getId(), OrderStatus.of(orders.getStatus()), "payer-action", orders.getLinks());
     }
 }

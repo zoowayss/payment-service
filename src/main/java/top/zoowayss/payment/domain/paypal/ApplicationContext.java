@@ -13,10 +13,12 @@ import lombok.NoArgsConstructor;
 public class ApplicationContext {
 
     public static final String NO_SHIPPING = "NO_SHIPPING";
+    public static final String SUBSCRIBE_NOW = "SUBSCRIBE_NOW";
 
     public ApplicationContext(String brandName, String returnUrl, String cancelUrl, PaymentMethod paymentMethod) {
         this.brandName = brandName;
         this.shippingPreference = NO_SHIPPING;
+        this.userAction = SUBSCRIBE_NOW;
         this.returnUrl = returnUrl;
         this.cancelUrl = cancelUrl;
         this.paymentMethod = paymentMethod;

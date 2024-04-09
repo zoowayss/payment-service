@@ -32,6 +32,12 @@ public class PayPalOrderTest {
         logger.info("order: {}", order);
     }
 
+    @Test
+    public void testRetriveOrder() throws Exception {
+        Order order = paypalSubscribeOrder.retriveOrder("I-X12ER4MJHKMM");
+        logger.info("order: {}", order);
+    }
+
 
     @Resource
     private PaypalOrder paypalOrder;
@@ -42,5 +48,11 @@ public class PayPalOrderTest {
         product.setCurrency("USD");
         product.setAmount("100.00");
         logger.info("order: {}", paypalOrder.createOrder(product));
+    }
+
+    @Test
+    public void testRetrieveOrderPaypal() throws Exception {
+        Order order = paypalOrder.retriveOrder("23X31295KE057562L");
+        logger.info("order: {}", order);
     }
 }

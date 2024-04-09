@@ -78,4 +78,22 @@ public class PaypalClient {
             throw new RuntimeException(e);
         }
     }
+
+    public Subscription subscriptionDetails(String tradeNo) {
+        try {
+            ResponseEntity<Subscription> responseEntity = restTemplate.exchange(url + "/v1/billing/subscriptions/" + tradeNo, HttpMethod.GET, new HttpEntity<>(obtainAuthedHeaders()), Subscription.class);
+            return responseEntity.getBody();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public PayPalOrders retrieveOrder(String tradeNo) {
+        try {
+            ResponseEntity<PayPalOrders> responseEntity = restTemplate.exchange(url + "/v2/checkout/orders/" + tradeNo, HttpMethod.GET, new HttpEntity<>(obtainAuthedHeaders()), PayPalOrders.class);
+            return responseEntity.getBody();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

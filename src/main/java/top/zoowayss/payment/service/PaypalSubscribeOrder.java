@@ -19,7 +19,12 @@ public class PaypalSubscribeOrder extends AbstractPayPalOrder {
         create.setStartTime(p.getStartTime());
         Subscription createSub = paypalClient.createSubscription(create);
         log.info("create subscription:{}", createSub);
-        return new Order(createSub.getId(), OrderStatus.of(createSub.getStatus()), createSub.getLinks().stream().filter(l -> "approve".equals(l.getRel())).findFirst().orElseThrow().getHref());
+        return new Order(createSub.getId(), OrderStatus.of(createSub.getStatus()), "approve", createSub.getLinks());
+    }
+    @Override
+    public Order retriveOrder(String tradeNo) throws Exception {
+        Subscription nowSub = paypalClient.subscriptionDetails(tradeNo);
 
+        return new Order(nowSub.getId(), OrderStatus.of(nowSub.getStatus()), "approve", nowSub.getLinks());
     }
 }

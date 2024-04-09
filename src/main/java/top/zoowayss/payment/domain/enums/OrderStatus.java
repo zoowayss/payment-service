@@ -11,7 +11,7 @@ import java.util.Arrays;
 public enum OrderStatus {
 
     CREATE(0, "CREATE", "APPROVAL_PENDING,PAYER_ACTION_REQUIRED"),
-    ACTIVE(1, "ACTIVE", "ACTIVE"),
+    ACTIVE(1, "ACTIVE", "ACTIVE,APPROVED"),
     CANCELED(2, "CANCELED", "CANCELED"),
     COMPLETED(3, "COMPLETED", "COMPLETED");
     private Integer state;

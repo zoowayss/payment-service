@@ -18,16 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PayPalOrders {
-
     private String id;
-
-    private String status;
-
-
-    private List<Link> links;
-    @JsonProperty("purchase_units")
-    private List<PurchaseUnits> purchaseUnits;
-
 
     /**
      * string
@@ -40,6 +31,16 @@ public class PayPalOrders {
      * intent is not supported when you have more than one purchase_unit within your order.
      */
     private String intent;
+
+    private String status;
+
+
+    private List<Link> links;
+    @JsonProperty("purchase_units")
+    private List<PurchaseUnits> purchaseUnits;
+
+
+
 
 
     @JsonProperty("payment_source")
