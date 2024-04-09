@@ -15,4 +15,9 @@ public class PaypalProperties {
 
     private String secret;
 
+    private String returnUrl;
+
+    private String cancelUrl;
+
+    private String brandName;
 }

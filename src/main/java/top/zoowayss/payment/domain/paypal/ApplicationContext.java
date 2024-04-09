@@ -12,6 +12,16 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApplicationContext {
 
+    public static final String NO_SHIPPING = "NO_SHIPPING";
+
+    public ApplicationContext(String brandName, String returnUrl, String cancelUrl, PaymentMethod paymentMethod) {
+        this.brandName = brandName;
+        this.shippingPreference = NO_SHIPPING;
+        this.returnUrl = returnUrl;
+        this.cancelUrl = cancelUrl;
+        this.paymentMethod = paymentMethod;
+    }
+
     @JsonProperty("brand_name")
     private String brandName;
 
@@ -45,10 +55,15 @@ public class ApplicationContext {
 
     @Data
     public static class PaymentMethod {
+        public static final String IMMEDIATE_PAYMENT_REQUIRED = "IMMEDIATE_PAYMENT_REQUIRED";
         @JsonProperty("payer_selected")
         private String payerSelected;
 
         @JsonProperty("payee_preferred")
         private String payeePreferred;
+
+        public PaymentMethod(String payeePreferred) {
+            this.payeePreferred = payeePreferred;
+        }
     }
 }

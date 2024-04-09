@@ -22,9 +22,10 @@ public class PaypalSubscribeOrder implements ThirdPartOrder, InitializingBean {
     public Order createOrder(Product p) {
         Subscription create = new Subscription();
         create.setPlanId(p.getId());
+        create.setStartTime(p.getStartTime());
         Subscription createSub = paypalClient.createSubscription(create);
         log.info("create subscription:{}", createSub);
-        return new Order(createSub.getId(), OrderStatus.of(createSub.getStatus()));
+        return new Order(createSub.getId(), OrderStatus.of(createSub.getStatus()), createSub.getLinks().stream().filter(l -> "approve".equals(l.getRel())).findFirst().orElseThrow().getHref());
 
     }
 
@@ -32,7 +33,8 @@ public class PaypalSubscribeOrder implements ThirdPartOrder, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         Product p = new Product();
         p.setId("P-6B929488U27333216MYJ5GZI");
+        p.setStartTime("2024-04-10T21:30:20.151Z");
         Order order = createOrder(p);
-        log.info("order : {}",order);
+        log.info("order : {}", order);
     }
 }

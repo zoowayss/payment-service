@@ -11,7 +11,7 @@ public interface ThirdPartOrder {
      * @param p
      * @return
      */
-    default Order createOrder(Product p) {
+    default Order createOrder(Product p) throws Exception {
         return null;
     }
 
@@ -25,9 +25,16 @@ public interface ThirdPartOrder {
      * @param tradeNo
      * @return
      */
-    default Order retriveOrder(String tradeNo) {
+    default Order retriveOrder(String tradeNo) throws Exception {
         return null;
     }
 
+    /**
+     * 取消订单
+     * @param tradeNo
+     * @throws Exception
+     */
+    default void cancelOrder(String tradeNo) throws Exception {
+    }
 
 }

@@ -15,6 +15,8 @@ public class Order {
 
     private OrderStatus status;
 
+    private String paymentUrl;
+
 }
 
 
