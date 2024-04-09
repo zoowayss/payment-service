@@ -16,15 +16,7 @@ public interface ThirdPartOrder {
     }
 
 
-    /**
-     * 创建订阅订单
-     *
-     * @param p
-     * @return
-     */
-    default Order createSubscription(Product p) {
-        return null;
-    }
+
 
 
     /**
@@ -37,15 +29,5 @@ public interface ThirdPartOrder {
         return null;
     }
 
-
-    /**
-     * 检索订阅订单
-     *
-     * @param subscriptionId
-     * @return
-     */
-    default Order retrieveSubscription(String subscriptionId) {
-        return null;
-    }
 
 }

@@ -1,18 +1,17 @@
 package top.zoowayss.payment.service.paypal;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.hc.client5.http.fluent.Request;
-import org.apache.hc.client5.http.fluent.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 import top.zoowayss.payment.domain.paypal.Subscription;
 import top.zoowayss.payment.properties.PaypalProperties;
-
-import java.io.IOException;
 
 @Component
 @EnableConfigurationProperties(PaypalProperties.class)
@@ -24,32 +23,29 @@ public class PaypalClient {
 
     private String url;
 
-    @Resource
-    private PaypalProperties paypalProperties;
-
-    @Resource
-    private ObjectMapper objectMapper;
+//    @Resource
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
-    public void setUrl(@Qualifier("paypalProperties") PaypalProperties PaypalProperties) {
+    public void setUrl(PaypalProperties paypalProperties) {
         this.url = paypalProperties.getMode().equalsIgnoreCase(SANDBOX) ? PROD_URL : SANDBOX_URL;
     }
 
-    Request requestPost(String uri) {
-        return Request.post(url + uri).addHeader("Authorization", "Bearer A21AAKmOrq5hMxr8CjMSwkMdQcKpdsH7HdHNelgM_9z4x72PvwT4_A08w0OTxFwPfwPtclBA4NwcCOkuvFp0NoqsF8z6O_t2w").addHeader("Content-Type", "application/json");
+    <T, R> ResponseEntity<R> requestPost(String uri, T body, Class<R> rClass) {
+        MultiValueMap<String,String> headers =new HttpHeaders();
+        headers.add("Authorization","Bearer A21AAJHmlnckjd7nB0vhWmfxDztjzLk0giaLKzhQFr2qMCveOqhzhyZtBKoFieXPzdK8h1vpJ901vCMzqPJFrGDaUapBZ9y5Q");
+        headers.add("Content-Type","application/json");
+        return restTemplate.exchange(url + uri, HttpMethod.POST, new HttpEntity<T>(body,headers), rClass);
 
     }
 
     public Subscription createSubscription(Subscription subscription) {
 
         try {
-            byte[] bytes = objectMapper.writeValueAsBytes(subscription);
-            Response response = requestPost("/v1/billing/subscriptions").bodyByteArray(bytes).execute();
-            return objectMapper.readValue(response.returnContent().asBytes(), Subscription.class);
-        } catch (IOException e) {
+            ResponseEntity<Subscription> responseEntity = requestPost("/v1/billing/subscriptions", subscription, Subscription.class);
+            return responseEntity.getBody();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }

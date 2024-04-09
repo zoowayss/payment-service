@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.zoowayss.payment.domain.Link;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +25,5 @@ public class Subscription {
     @JsonProperty("application_context")
     private ApplicationContext applicationContext;
 
+    private List<Link> links;
 }
