@@ -30,10 +30,7 @@ public class IStripeClient {
         try {
             SessionCreateParams params = SessionCreateParams.builder()
                     .setMode(mode)
-                    .addLineItem(SessionCreateParams.LineItem.builder().setPrice(p.getId()).setQuantity(1L).build())
-//                    .setCancelUrl(stripeProperties.getCancelUrl())
-//                    .setUiMode(SessionCreateParams.UiMode.HOSTED)
-//                    .setReturnUrl(stripeProperties.getReturnUrl())
+                    .addLineItem(SessionCreateParams.LineItem.builder().setPrice(p.getId()).setQuantity(p.getQuantity()).build())
                     .setSuccessUrl(stripeProperties.getReturnUrl())
                     .setCancelUrl(stripeProperties.getCancelUrl())
                     .build();

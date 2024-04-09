@@ -26,7 +26,7 @@ public class StripeOrderTest {
     @Test
     public void testCreateOrder() throws Exception {
 
-        Product p = new Product("test_sku", "price_1P3ZZBJext5rS05X5srSel6d", "", "","");
+        Product p = new Product("test_sku", "price_1P3ZZBJext5rS05X5srSel6d");
         Order order = stripeOrder.createOrder(p);
 
         log.info("order: {}", order);

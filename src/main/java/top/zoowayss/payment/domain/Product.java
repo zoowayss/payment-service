@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Product {
 
+    public Product(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
     private String name;
 
     private String id;
@@ -24,4 +29,6 @@ public class Product {
      * 订单价格
      */
     private String amount;
+
+    private Long quantity = 1L;
 }
