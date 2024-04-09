@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 @AllArgsConstructor
 @Getter
- public enum OrderStatus {
+public enum OrderStatus {
 
     CREATE(0, "CREATE", "APPROVAL_PENDING"),
     ACTIVE(1, "ACTIVE", "ACTIVE"),

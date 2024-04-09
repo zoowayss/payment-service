@@ -16,9 +16,6 @@ public interface ThirdPartOrder {
     }
 
 
-
-
-
     /**
      * 检索支付订单
      *
@@ -31,6 +28,7 @@ public interface ThirdPartOrder {
 
     /**
      * 取消订单
+     *
      * @param tradeNo
      * @throws Exception
      */

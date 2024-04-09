@@ -2,7 +2,6 @@ package top.zoowayss.payment.service;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import top.zoowayss.payment.domain.Order;
 import top.zoowayss.payment.domain.Product;
@@ -12,7 +11,7 @@ import top.zoowayss.payment.service.paypal.PaypalClient;
 
 @Service
 @Slf4j
-public class PaypalSubscribeOrder implements ThirdPartOrder, InitializingBean {
+public class PaypalSubscribeOrder implements ThirdPartOrder {
 
     @Resource
     private PaypalClient paypalClient;
@@ -27,14 +26,5 @@ public class PaypalSubscribeOrder implements ThirdPartOrder, InitializingBean {
         log.info("create subscription:{}", createSub);
         return new Order(createSub.getId(), OrderStatus.of(createSub.getStatus()), createSub.getLinks().stream().filter(l -> "approve".equals(l.getRel())).findFirst().orElseThrow().getHref());
 
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        Product p = new Product();
-        p.setId("P-6B929488U27333216MYJ5GZI");
-        p.setStartTime("2024-04-10T21:30:20.151Z");
-        Order order = createOrder(p);
-        log.info("order : {}", order);
     }
 }
