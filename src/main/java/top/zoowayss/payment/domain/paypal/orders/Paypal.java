@@ -1,4 +1,4 @@
-package top.zoowayss.payment.domain.paypal;
+package top.zoowayss.payment.domain.paypal.orders;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,16 +8,15 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Author: <a href="https://github.com/zoowayss">zoowayss</a>
- * @Date: 2024/4/9 09:26
+ * @Date: 2024/4/9 10:05
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ShippingAmount {
+public class Paypal {
 
-    @JsonProperty("currency_code")
-    private String currencyCode;
 
-    private String value;
+    @JsonProperty("experience_context")
+    private ExperienceContext experienceContext;
 }

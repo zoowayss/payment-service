@@ -1,10 +1,12 @@
-package top.zoowayss.payment.domain.paypal;
+package top.zoowayss.payment.domain.paypal.subscription;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.zoowayss.payment.domain.paypal.ApplicationContext;
+import top.zoowayss.payment.domain.paypal.ShippingAmount;
 
 import java.util.List;
 

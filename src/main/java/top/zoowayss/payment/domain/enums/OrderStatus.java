@@ -10,7 +10,7 @@ import java.util.Arrays;
 @Getter
 public enum OrderStatus {
 
-    CREATE(0, "CREATE", "APPROVAL_PENDING"),
+    CREATE(0, "CREATE", "APPROVAL_PENDING,PAYER_ACTION_REQUIRED"),
     ACTIVE(1, "ACTIVE", "ACTIVE"),
     CANCELED(2, "CANCELED", "CANCELED"),
     COMPLETED(3, "COMPLETED", "COMPLETED");

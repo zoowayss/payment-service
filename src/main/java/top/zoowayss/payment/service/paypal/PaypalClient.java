@@ -13,7 +13,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import top.zoowayss.payment.domain.paypal.ApplicationContext;
-import top.zoowayss.payment.domain.paypal.Subscription;
+import top.zoowayss.payment.domain.paypal.orders.ExperienceContext;
+import top.zoowayss.payment.domain.paypal.orders.PayPalOrders;
+import top.zoowayss.payment.domain.paypal.orders.PaymentSource;
+import top.zoowayss.payment.domain.paypal.orders.Paypal;
+import top.zoowayss.payment.domain.paypal.subscription.Subscription;
 import top.zoowayss.payment.properties.PaypalProperties;
 
 import java.nio.charset.StandardCharsets;
@@ -55,13 +59,20 @@ public class PaypalClient {
         return headers;
     }
 
-    public Subscription createSubscription(Subscription subscription) {
+    public Subscription createSubscription(Subscription subscription) throws Exception {
 
+        ApplicationContext applicationContext = new ApplicationContext(paypalProperties.getBrandName(), paypalProperties.getReturnUrl(), paypalProperties.getCancelUrl(),
+                new ApplicationContext.PaymentMethod(IMMEDIATE_PAYMENT_REQUIRED));
+        subscription.setApplicationContext(applicationContext);
+        ResponseEntity<Subscription> responseEntity = requestPost("/v1/billing/subscriptions", subscription, Subscription.class);
+        return responseEntity.getBody();
+    }
+
+    public PayPalOrders orderCreate(PayPalOrders payPalOrders) {
         try {
-            ApplicationContext applicationContext = new ApplicationContext(paypalProperties.getBrandName(), paypalProperties.getReturnUrl(), paypalProperties.getCancelUrl(),
-                    new ApplicationContext.PaymentMethod(IMMEDIATE_PAYMENT_REQUIRED));
-            subscription.setApplicationContext(applicationContext);
-            ResponseEntity<Subscription> responseEntity = requestPost("/v1/billing/subscriptions", subscription, Subscription.class);
+            payPalOrders.setPaymentSource(new PaymentSource(new Paypal(new ExperienceContext(paypalProperties.getBrandName(), paypalProperties.getReturnUrl(), paypalProperties.getCancelUrl()))));
+            ResponseEntity<PayPalOrders> responseEntity = requestPost("/v2/checkout/orders", payPalOrders, PayPalOrders.class);
+            log.info("create order:{}", responseEntity.getBody());
             return responseEntity.getBody();
         } catch (Exception e) {
             throw new RuntimeException(e);

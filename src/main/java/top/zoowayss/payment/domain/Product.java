@@ -14,4 +14,14 @@ public class Product {
     private String id;
 
     private String startTime;
+
+    /**
+     * 支付货币
+     */
+    private String currency;
+
+    /**
+     * 订单价格
+     */
+    private String amount;
 }

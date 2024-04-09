@@ -1,4 +1,4 @@
-package top.zoowayss.payment.domain.paypal;
+package top.zoowayss.payment.domain.paypal.subscription;
 
 import lombok.Data;
 
