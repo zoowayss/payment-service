@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import top.zoowayss.payment.domain.Order;
 import top.zoowayss.payment.domain.Product;
-import top.zoowayss.payment.service.PaypalSubscribeOrder;
+import top.zoowayss.payment.service.paypal.PaypalSubscribeOrder;
 import top.zoowayss.payment.service.paypal.PaypalOrder;
 
 

@@ -10,8 +10,8 @@ import java.util.Arrays;
 @Getter
 public enum OrderStatus {
 
-    CREATE(0, "CREATE", "APPROVAL_PENDING,PAYER_ACTION_REQUIRED"),
-    ACTIVE(1, "ACTIVE", "ACTIVE,APPROVED"),
+    CREATE(0, "CREATE", "APPROVAL_PENDING,PAYER_ACTION_REQUIRED,unpaid"),
+    ACTIVE(1, "ACTIVE", "ACTIVE,APPROVED,paid"),
     CANCELED(2, "CANCELED", "CANCELED"),
     COMPLETED(3, "COMPLETED", "COMPLETED");
     private Integer state;
@@ -20,7 +20,8 @@ public enum OrderStatus {
 
 
     public static OrderStatus of(String thirdState) {
-        return Arrays.stream(OrderStatus.values()).filter(v -> v.getThirdState().contains(thirdState)).findFirst().orElseThrow(() -> new RuntimeException(String.format("%s third status not found", thirdState)));
+        return Arrays.stream(OrderStatus.values()).filter(v -> Arrays.asList(v.getThirdState().split(",")).contains(thirdState))
+                .findFirst().orElseThrow(() -> new RuntimeException(String.format("%s third status not found", thirdState)));
     }
 
 }

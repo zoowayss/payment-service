@@ -1,7 +1,7 @@
-package top.zoowayss.payment.service;
+package top.zoowayss.payment.service.paypal;
 
 import jakarta.annotation.Resource;
-import top.zoowayss.payment.service.paypal.PaypalClient;
+import top.zoowayss.payment.service.ThirdPartOrder;
 
 /**
  * @Author: <a href="https://github.com/zoowayss">zoowayss</a>

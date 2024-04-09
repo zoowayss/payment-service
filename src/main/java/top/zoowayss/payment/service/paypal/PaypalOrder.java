@@ -8,7 +8,6 @@ import top.zoowayss.payment.domain.enums.OrderStatus;
 import top.zoowayss.payment.domain.paypal.ShippingAmount;
 import top.zoowayss.payment.domain.paypal.orders.PayPalOrders;
 import top.zoowayss.payment.domain.paypal.orders.PurchaseUnits;
-import top.zoowayss.payment.service.AbstractPayPalOrder;
 
 import java.util.Collections;
 
