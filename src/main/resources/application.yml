@@ -1,5 +1,5 @@
 payment:
   paypal:
     client-id: Aahv-F4J1wcR4BRiSrZLzfDEVpeSCu0i4OGzWgP5yecsqMTTsA5qgwnnaLZ6WEUWqyYRU6VfZMFgulLe
-    secret: Aahv-F4J1wcR4BRiSrZLzfDEVpeSCu0i4OGzWgP5yecsqMTTsA5qgwnnaLZ6WEUWqyYRU6VfZMFgulLe
+    secret: Aahv-F4J1wcR4BRiSrZLzfDEVpeSCu0i4OGzWgP5yecsqMTTsA5qgwnnaLZ6WEUWqyYRU6VfZMFgulLe1
     mode: sandbox
