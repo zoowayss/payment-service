@@ -1,0 +1,15 @@
+payment:
+  paypal:
+    client-id: Aahv-F4J1wcR4BRiSrZLzfDEVpeSCu0i4OGzWgP5yecsqMTTsA5qgwnnaLZ6WEUWqyYRU6VfZMFgulLe
+    secret: EBtNOxOBh63Rv2FzuDQcbSElR2STDdi4ePrwQbOMTy96uso3VixGlFKeC9kx_30OD09J2DshYYgddYXV
+    mode: sandbox
+    return-url: http://localhost:8080/paypal/return
+    cancel-url: http://localhost:8080/paypal/cancel
+    brand-name: test-brand
+
+  stripe:
+    api-key: sk_test_51LqYXiJext5rS05X8kbba7m2yGz7fDl0RiKbiJz2Yzu4KLqx1NW6iaLL1UBKIYWvYQpAAtGCwASwmGBr2GDprY01003qNXXqgq
+    secret: xxx
+    return-url: http://localhost:8080/stripe/return
+    cancel-url: http://localhost:8080/stripe/cancel
+
