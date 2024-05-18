@@ -1,0 +1,33 @@
+{
+  "dev": [
+    {
+      "sku": "lifetime-test",
+      "skuId": "price_1PHM3KKSws5IXzoXmnnot_exist",
+      "amount": 10,
+      "duration": 3650,
+      "name": "Lifetime",
+      "type": 2,
+      "kind": 1
+    },
+    {
+      "sku": "lifetime",
+      "skuId": "price_1PHM3KKSws5IXzoXmnrhqq80",
+      "amount": 10,
+      "duration": 3650,
+      "name": "Lifetime",
+      "type": 2,
+      "kind": 1
+    }
+  ],
+  "prod": [
+    {
+      "sku": "lifetime",
+      "skuId": "price_1OzcAyBxTF96D0sPZtdPxopw",
+      "amount": 7490,
+      "duration": 3650,
+      "name": "Lifetime",
+      "type": 2,
+      "kind": 1
+    }
+  ]
+}

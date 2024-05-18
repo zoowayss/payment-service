@@ -13,4 +13,5 @@
 - [✅] 订单查单定时任务
 
 ## How to use
-在你的启动类上面加  @EnablePayment ，然后在 application.yml 中配置支付相关的信息即可拥有以上功能
+
+在你的启动类上面加 @EnablePayment ，然后在 application.yml 中配置支付相关的信息即可拥有以上功能

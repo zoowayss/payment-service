@@ -1,11 +1,12 @@
 package com.coldlake.app.payment.controller;
 
-import com.coldlake.app.payment.domain.paypal.PayPalWebhookEvent;
-import com.coldlake.app.payment.service.paypal.AbstractPayPalOrderHandler;
-import com.coldlake.app.payment.service.paypal.PaypalService;
+import com.coldlake.app.payment.domain.payment.paypal.PayPalWebhookEvent;
+import com.coldlake.app.payment.service.payment.paypal.AbstractPayPalOrderHandler;
+import com.coldlake.app.payment.service.payment.paypal.PaypalService;
 import com.coldlake.app.payment.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+
+import static com.coldlake.app.payment.service.payment.LogService.cm;
 
 /**
  * @Author: <a href="https://github.com/zoowayss">zoowayss</a>
@@ -35,20 +39,26 @@ public class PayPalCallbackController {
      * @throws Exception
      */
     @PostMapping(value = "/{version}/callback/payNotifyForPaypal", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void payNotifyForPaypal(@RequestBody Map<String, Object> body, @RequestHeader("PAYPAL-AUTH-ALGO") String authLog,
+    public void payNotifyForPaypal(@RequestBody Map<String, Object> body,
+                                   @RequestHeader("PAYPAL-AUTH-ALGO") String authLog,
                                    @RequestHeader("PAYPAL-CERT-URL") String certUrl,
                                    @RequestHeader("PAYPAL-TRANSMISSION-ID") String transmissionId,
                                    @RequestHeader("PAYPAL-TRANSMISSION-SIG") String transmissionSig,
-                                   @RequestHeader("PAYPAL-TRANSMISSION-TIME") String transmissionTime) throws Exception {
-        String cm = "payNotifyForPaypal@CallbackController";
-        log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" + cm + "PayPal notify >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n {}", JsonUtils.logJson(body));
+                                   @RequestHeader("PAYPAL-TRANSMISSION-TIME") String transmissionTime, HttpServletResponse response) throws Exception {
+        String cm = cm();
+        log.info("{} receive PayPal notify data: {}", cm, JsonUtils.logJson(body));
 
         boolean isValid = paypalService.webhookValidate(body, authLog, certUrl, transmissionId, transmissionSig, transmissionTime);
         if (!isValid) {
             log.error("webhook validate fail. body:{}", body);
             return;
         }
-        PayPalWebhookEvent webhookEvent = JsonUtils.toObject(JsonUtils.toJson(body), PayPalWebhookEvent.class);
-        paypalService.dealOrderEvent(webhookEvent);
+        try {
+            PayPalWebhookEvent webhookEvent = JsonUtils.toObject(JsonUtils.toJson(body), PayPalWebhookEvent.class);
+            paypalService.dealOrderEvent(webhookEvent);
+        } catch (Exception e) {
+            log.error("{}", cm, e);
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
     }
 }

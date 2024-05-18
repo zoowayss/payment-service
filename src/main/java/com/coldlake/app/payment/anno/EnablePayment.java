@@ -13,5 +13,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Target({java.lang.annotation.ElementType.TYPE})
 @Import({PaymentOrderAutoConfiguration.class})
-public @interface EnablePayment {
-}
+public @interface EnablePayment {}

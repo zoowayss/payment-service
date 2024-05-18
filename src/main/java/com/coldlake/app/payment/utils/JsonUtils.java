@@ -3,7 +3,7 @@ package com.coldlake.app.payment.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.coldlake.app.payment.service.LogService.cm;
+import static com.coldlake.app.payment.service.payment.LogService.cm;
 
 /**
  * @Author: <a href="https://github.com/zoowayss">zoowayss</a>

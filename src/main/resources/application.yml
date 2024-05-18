@@ -8,8 +8,56 @@ payment:
     brand-name: test-brand
 
   stripe:
-    api-key: sk_test_51LqYXiJext5rS05X8kbba7m2yGz7fDl0RiKbiJz2Yzu4KLqx1NW6iaLL1UBKIYWvYQpAAtGCwASwmGBr2GDprY01003qNXXqgq
+    api-key: sk_test_51P5fgmKSws5IXzoXm2ntPztSrPoqqkpbuZ3OWoclvTKLU3FoJdewnZEwsL0kxdklQEpkObp8qpIsDZysh4MxVMAc00i8vO3UYp
     secret: xxx
     return-url: http://localhost:8080/stripe/return
     cancel-url: http://localhost:8080/stripe/cancel
+    webhook-secret: xx
+  order:
+    job:
+      enabled: true1
 
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+  datasource:
+    url: jdbc:mysql://192.168.0.74:3326/payment?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: d1!b#MMB#!ngaRUkdd9n
+
+  redis:
+    host: amason.zoowayss.top
+    port: 6379
+    password: qqq
+
+
+jetcache:
+  statIntervalMinutes: -1
+  areaInCacheName: false
+  hidePackages: com.alibaba
+  local:
+    default:
+      type: linkedhashmap
+      limit: 300
+      keyConvertor: fastjson
+      expireAfterWriteInMillis: 100000
+  remote:
+    default:
+      type: redis
+      keyPrefix: "ca:"
+      keyConvertor: fastjson
+      valueEncoder: java
+      valueDecoder: java
+      poolConfig:
+        minIdle: 1
+        maxIdle: 1
+        maxTotal: 50
+        testWhileIdle: true
+        minEvictableIdleTimeMillis: 30000
+        timeBetweenEvictionRunsMillis: 30000
+        numTestsPerEvictionRun: -1
+      host: amason.zoowayss.top
+      port: 6379
+      password: qqq
+      timeout: 30000
